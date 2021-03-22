@@ -1,6 +1,8 @@
 package com.luofan.tank;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -16,6 +18,7 @@ public class TankFrame extends Frame {
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
+        this.addKeyListener(new MykeyListen());
         // 窗口监听 当窗口按x 可以关闭窗口，不加只能小程序停止，可以注销下列内部类进行规避验证
         addWindowListener(new WindowAdapter() {
             @Override
@@ -31,6 +34,21 @@ public class TankFrame extends Frame {
         graphics.fillRect(x, y, 50, 50);
         x += 10;
         y += 10;
+    }
+
+    /**
+     * 处理键盘事件的类
+     */
+    class MykeyListen extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("key pressed");
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("key released");
+        }
     }
 
 }
