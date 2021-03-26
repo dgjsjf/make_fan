@@ -5,14 +5,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 /**
  * @author luofan
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN,this);
-    Bullet myBullet = new Bullet(300, 300, Dir.DOWN);
-    private final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    /**
+     * 子弹数组
+     */
+    ArrayList<Bullet> bullets = new ArrayList();
+    public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -55,8 +59,17 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics graphics) {
+        // 记录子弹数
+        Color color = graphics.getColor();
+        graphics.setColor(Color.white);
+        graphics.drawString("子弹数量:" + bullets.size(), 10, 60);
+        graphics.setColor(color);
+
         myTank.paint(graphics);
-        myBullet.paint(graphics);
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(graphics);
+
+        }
     }
 
     /**
