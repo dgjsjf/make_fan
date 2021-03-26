@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
  * @author luofan
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN,this);
     Bullet myBullet = new Bullet(300, 300, Dir.DOWN);
     private final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
@@ -37,6 +37,7 @@ public class TankFrame extends Frame {
      * 即就是先做内存处理  然后一次画布同步；
      */
     Image offScreeenImage = null;
+
     @Override
     public void update(Graphics g) {
         if (offScreeenImage == null) {
@@ -104,6 +105,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;

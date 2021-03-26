@@ -12,11 +12,13 @@ public class Tank {
     private int y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
+    private TankFrame tankFrame;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public boolean isMoving() {
@@ -87,5 +89,9 @@ public class Tank {
 
     public static int getSPEED() {
         return SPEED;
+    }
+
+    public void fire() {
+        tankFrame.myBullet = new Bullet(this.x, this.y, this.dir);
     }
 }
