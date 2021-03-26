@@ -19,8 +19,30 @@ public class Tank {
         this.dir = dir;
     }
 
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    /**
+     * 默认坦克为静止状态
+     */
+    private boolean moving = false;
+
     public void paint(Graphics graphics) {
+
         graphics.fillRect(x, y, 50, 50);
+        move();
+
+    }
+
+    private void move() {
+        if (!moving) {
+            return;
+        }
         switch (dir) {
             case UP:
                 y -= SPEED;
