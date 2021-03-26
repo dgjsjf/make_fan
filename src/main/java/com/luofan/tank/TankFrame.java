@@ -12,9 +12,10 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN);
     Bullet myBullet = new Bullet(300, 300, Dir.DOWN);
+    private final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -27,6 +28,28 @@ public class TankFrame extends Frame {
             }
 
         });
+    }
+
+    /**
+     * 防止 子弹一直频闪 ---  游戏双缓冲问题
+     * update方法在paint之前进行加载
+     * 原理 先给屏幕给块内存画布offScreeenImage，然后先直接画在内存位置，然后把内存画布直接交给系统画笔g
+     * 即就是先做内存处理  然后一次画布同步；
+     */
+    Image offScreeenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreeenImage == null) {
+            offScreeenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics graphics = offScreeenImage.getGraphics();
+        Color color = graphics.getColor();
+        graphics.setColor(Color.black);
+        graphics.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        graphics.setColor(color);
+        paint(graphics);
+        g.drawImage(offScreeenImage, 0, 0, null);
+
     }
 
     @Override

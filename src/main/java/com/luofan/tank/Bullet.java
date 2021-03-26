@@ -6,7 +6,7 @@ import java.awt.*;
  * @author luofan
  */
 public class Bullet {
-    private static final int SPEED = 5;
+    private static final int SPEED = 3;
     private int x, y;
     private Dir dir;
     private static int WIDTH = 20, HEIGHT = 20;
